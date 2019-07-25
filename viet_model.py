@@ -12,14 +12,14 @@
 
 
 import os
-from underthesea import word_tokenize
+from underthesea import word_tokenize, sent_tokenize
 
 
 # In[2]:
 
 
 HOME_PATH = 'server'
-DATA_PATH = '/floyd/input/data'
+DATA_PATH = './'
 
 WEIGHT_PATH = os.path.join(HOME_PATH, 'weight')
 if not os.path.isdir(WEIGHT_PATH):
@@ -33,12 +33,17 @@ if not os.path.isdir(WEIGHT_PATH):
 # In[ ]:
 
 
-with open(os.path.join(DATA_PATH, 'corpus-full-0.2.txt')) as f:
+with open(os.path.join(DATA_PATH, 'VNESEcorpus.txt')) as f:
     listLines = f.read().split('\n')
 
-data = []
+listSens = []
 for line in listLines:
-    data.append(word_tokenzie(line))
+    listSens.append(sent_tokenize(line))
+
+data = []
+for sen in listSens:
+    data.append(word_tokenzie(sen))
+    
 data = list(filter(lambda x: x != ',' and x != '.' and x != ':' and x != ';' and x != '!' and x != '?'
                     and x != '...' and x != '(' and x != ')' and x != '/' and x != '/' and x != '|' and x != '='
                     and x != '+' and x != '*' and x != '-' and x != '&' and x != '^' and x != '%' and x != '$'
